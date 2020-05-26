@@ -50,12 +50,15 @@ public class NewsAdapter extends ArrayAdapter<NewsItem> {
         NewsItem currentNewsItem = getItem(position);
 
         // Get the headline string from the NewsItem object
+
         String headline = currentNewsItem.getHeadline();
 
         // Find the headline TextView
         TextView headlineTextView = (TextView) listItemView.findViewById(R.id.headline);
         // Display the headline of the current news item in that TextView
-        headlineTextView.setText(headline);
+        //CHANGE BACK TO AUTOMATIC!!!!!
+
+        headlineTextView.setText("TRY ONE HARCODED");
 
         // Return the list item view that is now showing the appropriate data
         return listItemView;
