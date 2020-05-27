@@ -50,15 +50,36 @@ public class NewsAdapter extends ArrayAdapter<NewsItem> {
         NewsItem currentNewsItem = getItem(position);
 
         // Get the headline string from the NewsItem object
-
         String headline = currentNewsItem.getHeadline();
 
         // Find the headline TextView
         TextView headlineTextView = (TextView) listItemView.findViewById(R.id.headline);
         // Display the headline of the current news item in that TextView
-        //CHANGE BACK TO AUTOMATIC!!!!!
+        headlineTextView.setText(headline);
 
-        headlineTextView.setText("TRY ONE HARCODED");
+        // Get the section string from the NewsItem object
+        String section = currentNewsItem.getSection();
+
+        // Find the section TextView
+        TextView sectionTextView = (TextView) listItemView.findViewById(R.id.section);
+        // Display the section of the current news item in that TextView
+        sectionTextView.setText(section);
+
+        // Get the date string from the NewsItem object
+        String date = currentNewsItem.getDate();
+
+        // Find the date TextView
+        TextView dateTextView = (TextView) listItemView.findViewById(R.id.date);
+        // Display the date of the current news item in that TextView
+        dateTextView.setText(date);
+
+        // Get the author string from the NewsItem object
+        String author = currentNewsItem.getAuthor();
+
+        // Find the author TextView
+        TextView authorTextView = (TextView) listItemView.findViewById(R.id.author);
+        // Display the author of the current news item in that TextView
+        authorTextView.setText(author);
 
         // Return the list item view that is now showing the appropriate data
         return listItemView;

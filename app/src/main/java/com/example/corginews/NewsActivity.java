@@ -29,7 +29,7 @@ private static final String LOG_TAG = NewsActivity.class.getName();
 
 /** URL for corgi-related news story from the guardian */
 private static final String GUARDIAN_REQUEST_URL =
-        "http://content.guardianapis.com/search?q=corgi&api-key=test";
+        "https://content.guardianapis.com/search?q=corgi&api-key=test";
 
     /**
      * Constant value for the news item loader ID. We can choose any integer.
@@ -113,6 +113,7 @@ private static final String GUARDIAN_REQUEST_URL =
 
         // If there is a valid list of NewsItems, then add them to the adapter's
         // data set. This will trigger the ListView to update.
+
         if (newsItems != null && !newsItems.isEmpty()) {
             mAdapter.addAll(newsItems);
         }

@@ -98,7 +98,7 @@ public final class QueryUtils {
                 Log.e(LOG_TAG, "Error response code: " + urlConnection.getResponseCode());
             }
         } catch (IOException e) {
-            Log.e(LOG_TAG, "Problem retrieving the earthquake JSON results.", e);
+            Log.e(LOG_TAG, "Problem retrieving the news JSON results.", e);
         } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
@@ -158,6 +158,7 @@ public final class QueryUtils {
             // which represents a list of results of the request.
             JSONArray newsItemArray = responseObject.getJSONArray("results");
 
+
             // For each result in the newsItemArray, create a NewsItem object
             for (int i = 0; i < newsItemArray.length(); i++) {
 
@@ -167,9 +168,31 @@ public final class QueryUtils {
                 // Extract the value for the key called "webTitle"
                 String headline = currentNewsItem.getString("webTitle");
 
+                // Extract the value for the key called "sectionName"
+                String section = currentNewsItem.getString("sectionName");
+
+                // Extract the value for the key called "webPublicationDate"
+                String date = currentNewsItem.getString("webPublicationDate");
+
+                // Extract the JSONArray associated with the key called "tags",
+                // which represents a list of tags in the newsItemArray.
+                // Used question/answer posted by Anju in the knowledge base:
+                // https://knowledge.udacity.com/questions/196705, to get the code right.
+                String author ="";
+               JSONArray authorArray = currentNewsItem.getJSONArray("tags");
+                if (authorArray != null) {
+                    for (int j = 0; j < authorArray.length(); j++) {
+                        JSONObject object = authorArray.getJSONObject(j);
+                        author = object.getString("webTitle");
+                    }
+                    if (author == null) {
+                        author = "Author NA";
+                    }
+                }
+
                 // Create a new NewsItem object with headline,
                 // from the JSON response.
-                NewsItem newsItem = new NewsItem(headline);
+                NewsItem newsItem = new NewsItem(headline, section, date, author);
 
                 // Add the new NewsItem to the list of news items.
                 newsItems.add(newsItem);
