@@ -30,7 +30,7 @@ private static final String LOG_TAG = NewsActivity.class.getName();
 
 /** URL for corgi-related news story from the guardian */
 private static final String GUARDIAN_REQUEST_URL =
-        "https://content.guardianapis.com/search?q=corgi&api-key=test&show-tags";
+        "https://content.guardianapis.com/search?q=corgi&show-tags=contributor&api-key=test";
 
     /**
      * Constant value for the news item loader ID. We can choose any integer.
