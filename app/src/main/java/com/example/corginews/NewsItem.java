@@ -17,16 +17,20 @@ public class NewsItem {
     /** Author of the news item */
     private String mAuthor;
 
+    /** URL of the news item */
+    private String mUrl;
+
     /**
      * Constructs a new NewsItem.
      *
      * headline is the headline of the news item
      */
-    public NewsItem(String newsHeadline, String newsSection, String newsDate, String newsAuthor) {
+    public NewsItem(String newsHeadline, String newsSection, String newsDate, String newsAuthor, String url) {
         mHeadline = newsHeadline;
         mSection = newsSection;
         mDate = newsDate;
         mAuthor = newsAuthor;
+        mUrl = url;
     }
 
     /**
@@ -56,4 +60,12 @@ public class NewsItem {
     public String getAuthor() {
         return mAuthor;
     }
+
+    /**
+     * Returns the URL.
+     */
+    public String getUrl() {
+        return mUrl;
+    }
+
 }

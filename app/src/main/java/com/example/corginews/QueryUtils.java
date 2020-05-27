@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Helper methods related to requesting and receiving earthquake data from The Guardian.
+ * Helper methods related to requesting and receiving news data from The Guardian.
  */
 public final class QueryUtils {
 
@@ -174,25 +174,28 @@ public final class QueryUtils {
                 // Extract the value for the key called "webPublicationDate"
                 String date = currentNewsItem.getString("webPublicationDate");
 
+                // Extract the value for the key called "webUrl"
+                String url = currentNewsItem.getString("webUrl");
+
                 // Extract the JSONArray associated with the key called "tags",
                 // which represents a list of tags in the newsItemArray.
                 // Used question/answer posted by Anju in the knowledge base:
                 // https://knowledge.udacity.com/questions/196705, to get the code right.
                 String author ="";
-               JSONArray authorArray = currentNewsItem.getJSONArray("tags");
-                if (authorArray != null) {
+                if (currentNewsItem.has("tags")) {
+                    JSONArray authorArray = currentNewsItem.getJSONArray("tags");
+                if (authorArray != null && authorArray.length() >= 0) {
                     for (int j = 0; j < authorArray.length(); j++) {
                         JSONObject object = authorArray.getJSONObject(j);
                         author = object.getString("webTitle");
                     }
-                    if (author == null) {
-                        author = "Author NA";
                     }
                 }
+                else author = "Author NA";
 
                 // Create a new NewsItem object with headline,
                 // from the JSON response.
-                NewsItem newsItem = new NewsItem(headline, section, date, author);
+                NewsItem newsItem = new NewsItem(headline, section, date, author, url);
 
                 // Add the new NewsItem to the list of news items.
                 newsItems.add(newsItem);
@@ -202,7 +205,7 @@ public final class QueryUtils {
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message
             // with the message from the exception.
-            Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+            Log.e("QueryUtils", "Problem parsing the news JSON results", e);
         }
 
         // Return the list of news items

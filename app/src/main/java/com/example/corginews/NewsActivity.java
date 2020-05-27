@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,7 +30,7 @@ private static final String LOG_TAG = NewsActivity.class.getName();
 
 /** URL for corgi-related news story from the guardian */
 private static final String GUARDIAN_REQUEST_URL =
-        "https://content.guardianapis.com/search?q=corgi&api-key=test";
+        "https://content.guardianapis.com/search?q=corgi&api-key=test&show-tags";
 
     /**
      * Constant value for the news item loader ID. We can choose any integer.
@@ -61,6 +62,25 @@ private static final String GUARDIAN_REQUEST_URL =
     // Set the adapter on the {@link ListView}
     // so the list can be populated in the user interface
     newsListView.setAdapter(mAdapter);
+
+    // Set an item click listener on the ListView, which sends an intent to a web browser
+    // to open a website with more information about the selected news item.
+    newsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+            // Find the current news item that was clicked on
+            NewsItem currentNewsItem = mAdapter.getItem(position);
+
+            // Convert the String URL into a URI object (to pass into the Intent constructor)
+            Uri newsItemUri = Uri.parse(currentNewsItem.getUrl());
+
+            // Create a new intent to view the news item URI
+            Intent websiteIntent = new Intent(Intent.ACTION_VIEW, newsItemUri);
+
+            // Send the intent to launch a new activity
+            startActivity(websiteIntent);
+        }
+    });
 
     // Get a reference to the ConnectivityManager to check state of network connectivity
     ConnectivityManager connMgr = (ConnectivityManager)
